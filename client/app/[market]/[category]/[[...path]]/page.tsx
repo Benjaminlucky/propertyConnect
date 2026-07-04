@@ -606,6 +606,10 @@ function compactPrice(l: Listing) {
   return l.price;
 }
 
-export function generateStaticParams() {
-  return [];
-}
+// No generateStaticParams here on purpose: every path under this catch-all is
+// listing/filter data that changes constantly, so nothing should be
+// statically pre-rendered. An empty generateStaticParams() still marks the
+// route as SSG-eligible, which conflicts with this page's use of
+// searchParams/DB fetches and throws DYNAMIC_SERVER_USAGE in production
+// builds — force fully dynamic rendering instead.
+export const dynamic = "force-dynamic";
