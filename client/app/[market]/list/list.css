@@ -987,4 +987,16 @@
   .lw-header-inner {
     padding: 0 16px;
   }
+
+  /* Back/Continue row: fixed-padding buttons with variable label length
+     ("Preview & review", "Publish listing") can exceed a 320–375px viewport
+     and force horizontal scroll — make them share the row evenly instead. */
+  .lw-nav {
+    flex-wrap: wrap;
+  }
+  .lw-nav .lw-btn {
+    flex: 1 1 140px;
+    justify-content: center;
+    margin-left: 0;
+  }
 }

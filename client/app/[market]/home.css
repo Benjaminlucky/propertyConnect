@@ -1551,6 +1551,11 @@
   .home .nh-highlights__grid { grid-template-columns: 1fr; }
   .home .nh-stat { flex: 1 0 100%; border-right: none; }
 }
+@media (max-width: 479px) {
+  /* Property-details grid (furnishing, year built, etc.) — 2 columns
+     squeezes long values on phones; stack to 1 column instead. */
+  .home .attrs { grid-template-columns: 1fr; }
+}
 
 /* ================================================================
    PREMIUM DESIGN ELEVATION
