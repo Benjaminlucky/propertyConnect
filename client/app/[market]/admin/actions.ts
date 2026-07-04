@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
 
 export interface Submission {
   id: number;
@@ -53,7 +53,9 @@ export async function reviewSubmission(
   action: "approved" | "rejected",
 ): Promise<void> {
   await assertAdmin();
-  const { error } = await supabaseAdmin
+  const admin = getSupabaseAdmin();
+  if (!admin) throw new Error("Service role key not configured");
+  const { error } = await admin
     .from("verification_submissions")
     .update({ status: action, reviewed_at: new Date().toISOString() })
     .eq("id", id);

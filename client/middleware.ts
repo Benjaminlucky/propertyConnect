@@ -13,8 +13,15 @@ const PROTECTED_SEGMENTS = new Set(["dashboard", "list", "verify"]);
  *    always see a valid (non-expired) session cookie.
  * 3. Protected routes (dashboard / list / verify) redirect to /{market}/auth
  *    server-side if there is no authenticated user — no client-side flash.
+ *
+ * Named `middleware.ts` (not Next 16's `proxy.ts`) on purpose: proxy.ts always
+ * runs on the Node.js runtime with no way to opt out, and @netlify/plugin-nextjs
+ * (as of 5.15.12) doesn't yet bundle that correctly — it still routes Proxy
+ * through its Edge Functions bundler, which crashes trying to load a
+ * Node.js-targeted bundle. middleware.ts keeps this on the Edge runtime, which
+ * is what the Netlify plugin actually supports.
  */
-export async function proxy(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Skip Next.js internals and static files entirely

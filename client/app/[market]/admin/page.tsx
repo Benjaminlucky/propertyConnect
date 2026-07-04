@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
 import type { Metadata } from "next";
 import { getMarket } from "@/lib/markets";
-import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import { SiteHeader, SiteFooter } from "@/components/SiteChrome";
 import { AdminView } from "./AdminView";
 import { AdminLogin } from "./AdminLogin";
@@ -17,7 +17,9 @@ export const metadata: Metadata = {
 const COOKIE = "pc_admin";
 
 async function fetchQueue(): Promise<Submission[]> {
-  const { data, error } = await supabaseAdmin
+  const admin = getSupabaseAdmin();
+  if (!admin) return [];
+  const { data, error } = await admin
     .from("verification_submissions")
     .select("*, agent_profiles(name, email, slug)")
     .eq("status", "review")
