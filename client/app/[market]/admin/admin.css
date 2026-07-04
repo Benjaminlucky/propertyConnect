@@ -1,0 +1,375 @@
+/* ============================================================
+   Admin — Verification Queue
+   ============================================================ */
+
+/* ── Shell ── */
+.adm-shell {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 36px 24px 80px;
+  min-height: 60vh;
+}
+
+.adm-hdr {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.adm-title {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.adm-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  background: rgba(240, 199, 94, 0.2);
+  color: var(--gold-deep);
+  border: 1px solid rgba(240, 199, 94, 0.4);
+}
+
+.adm-badge--ok {
+  background: rgba(43, 132, 98, 0.1);
+  color: var(--ok);
+  border-color: rgba(43, 132, 98, 0.25);
+}
+
+/* ── Grid ── */
+.adm-grid {
+  display: grid;
+  gap: 16px;
+}
+
+/* ── Card ── */
+.adm-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: opacity 0.2s;
+}
+
+.adm-card--busy {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.adm-card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--line);
+  background: var(--c-neutral-25);
+}
+
+.adm-step {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.adm-agent {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.adm-agent-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.adm-agent-email {
+  font-size: 12px;
+  color: var(--clay);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.adm-time {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--clay);
+  white-space: nowrap;
+}
+
+/* ── Card body (data preview) ── */
+.adm-card-body {
+  padding: 18px;
+}
+
+.adm-img-wrap {
+  display: block;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  max-width: 420px;
+  text-decoration: none;
+}
+
+.adm-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 260px;
+  object-fit: cover;
+}
+
+.adm-img-label {
+  display: block;
+  padding: 8px 12px;
+  background: rgba(20, 17, 15, 0.06);
+  font-size: 12px;
+  color: var(--forest);
+  font-weight: 500;
+  text-align: center;
+}
+
+.adm-doc {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  background: var(--c-neutral-25);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--forest);
+  font-size: 14px;
+  font-weight: 600;
+  max-width: 420px;
+  transition: background 0.15s;
+}
+
+.adm-doc:hover { background: var(--c-neutral-50); }
+
+.adm-doc-name {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--clay);
+  word-break: break-all;
+}
+
+.adm-num {
+  font-size: 14px;
+  color: var(--ink);
+  margin: 0;
+}
+
+.adm-num strong { color: var(--forest); }
+
+.adm-nodata {
+  font-size: 13px;
+  color: var(--clay);
+  font-style: italic;
+  margin: 0;
+}
+
+.adm-raw {
+  font-size: 12px;
+  color: var(--ink);
+  background: var(--c-neutral-25);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  overflow-x: auto;
+  margin: 0;
+  max-width: 100%;
+}
+
+/* ── Card footer (actions) ── */
+.adm-card-foot {
+  display: flex;
+  gap: 10px;
+  padding: 14px 18px;
+  border-top: 1px solid var(--line);
+  background: var(--c-neutral-25);
+}
+
+.adm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.15s, border-color 0.15s, opacity 0.15s;
+}
+
+.adm-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.adm-btn--approve {
+  background: rgba(31, 122, 83, 0.1);
+  color: #1f7a53;
+  border-color: rgba(31, 122, 83, 0.25);
+}
+
+.adm-btn--approve:hover:not(:disabled) {
+  background: #1f7a53;
+  color: #fff;
+  border-color: #1f7a53;
+}
+
+.adm-btn--reject {
+  background: rgba(185, 40, 40, 0.08);
+  color: #b92828;
+  border-color: rgba(185, 40, 40, 0.2);
+}
+
+.adm-btn--reject:hover:not(:disabled) {
+  background: #b92828;
+  color: #fff;
+  border-color: #b92828;
+}
+
+/* ── Empty state ── */
+.adm-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 64px 0;
+  color: var(--ok);
+  text-align: center;
+}
+
+.adm-empty p {
+  font-size: 15px;
+  color: var(--clay);
+  margin: 0;
+}
+
+/* ── Login page ── */
+.adm-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 40px 20px;
+}
+
+.adm-login__box {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 4px 24px rgba(20, 17, 15, 0.06);
+}
+
+.adm-login__icon {
+  color: var(--forest);
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.adm-login__title {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin: 0 0 6px;
+}
+
+.adm-login__sub {
+  font-size: 13px;
+  color: var(--clay);
+  margin: 0 0 28px;
+}
+
+.adm-login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.adm-login__input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--ink);
+  background: var(--c-neutral-25);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  box-sizing: border-box;
+}
+
+.adm-login__input:focus {
+  border-color: var(--forest-2);
+  box-shadow: 0 0 0 3px rgba(14, 90, 67, 0.1);
+  background: #fff;
+}
+
+.adm-login__err {
+  font-size: 13px;
+  color: #b92828;
+  margin: 0;
+  text-align: left;
+}
+
+.adm-login__btn {
+  padding: 12px;
+  background: var(--forest);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.adm-login__btn:hover:not(:disabled) { background: var(--forest-2); }
+.adm-login__btn:disabled { opacity: 0.6; cursor: default; }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .adm-shell { padding: 24px 16px 60px; }
+  .adm-card-head { flex-wrap: wrap; }
+  .adm-card-foot { flex-direction: column; }
+  .adm-btn { justify-content: center; }
+  .adm-login__box { padding: 32px 24px; }
+}
