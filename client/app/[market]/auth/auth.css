@@ -554,6 +554,43 @@
   gap: 4px;
 }
 
+/* ── OAuth buttons ── */
+
+.au-oauth-row {
+  display: flex;
+  gap: 10px;
+}
+
+.au-oauth-btn {
+  flex: 1 1 0;
+  height: 46px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  background: var(--c-neutral-0);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-inter), sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out);
+}
+
+.au-oauth-btn:hover:not(:disabled) {
+  border-color: var(--forest);
+  background: var(--c-forest-50);
+}
+
+.au-oauth-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
 /* ── Divider ── */
 
 .au-divider {

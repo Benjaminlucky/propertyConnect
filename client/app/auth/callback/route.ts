@@ -29,6 +29,24 @@ export async function GET(request: NextRequest) {
 
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
+      // OAuth providers (Google/Facebook) don't know the user's persona
+      // (agent/landlord/developer/…) — send first-time OAuth users to pick
+      // one before continuing. Email/password signups already set this at
+      // signup time, so they pass straight through.
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: profile } = await supabase
+          .from("agent_profiles")
+          .select("persona_confirmed")
+          .eq("id", user.id)
+          .single();
+        if (profile?.persona_confirmed === false) {
+          const market = next.split("/")[1] || "ng";
+          return NextResponse.redirect(
+            `${origin}/${market}/auth/persona?next=${encodeURIComponent(next)}`
+          );
+        }
+      }
       return NextResponse.redirect(`${origin}${next}`);
     }
   }

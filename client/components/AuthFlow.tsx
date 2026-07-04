@@ -7,6 +7,7 @@ import {
   Mail, Eye, EyeOff, ArrowRight, ShieldCheck, TrendingUp,
   Bell, Check, X,
 } from "lucide-react";
+import { GoogleMark, FacebookMark } from "@/components/ui/Icons";
 import { LogoMark } from "@/components/ui/Icons";
 import {
   Persona, PERSONA_META, AuthUser,
@@ -58,6 +59,26 @@ export function AuthFlow({ onSuccess, marketSlug }: Props) {
   const [siPass, setSiPass]   = useState("");
   const [siErr, setSiErr]     = useState("");
   const [siLoading, setSiLoading] = useState(false);
+
+  // OAuth (Google / Facebook)
+  const [oauthErr, setOauthErr] = useState("");
+  const [oauthLoading, setOauthLoading] = useState<"google" | "facebook" | null>(null);
+
+  const handleOAuth = async (provider: "google" | "facebook") => {
+    setOauthErr("");
+    setOauthLoading(provider);
+    const { supabase } = await import("@/lib/supabase-client");
+    const origin = window.location.origin;
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: { redirectTo: `${origin}/auth/callback?next=/${marketSlug}/dashboard` },
+    });
+    if (error) {
+      setOauthErr(error.message);
+      setOauthLoading(null);
+    }
+    // On success the browser navigates away to the provider — no further action needed.
+  };
 
   const handleSignUp = async () => {
     if (!name.trim() || !email.trim() || !pass.trim()) {
@@ -145,6 +166,30 @@ export function AuthFlow({ onSuccess, marketSlug }: Props) {
               <button className="au-btn au-btn-secondary" onClick={() => setFlow("signin")}>
                 Sign in to an existing account
               </button>
+              <div className="au-divider"><span /><p>or continue with</p><span /></div>
+              {oauthErr && (
+                <div className="au-error" style={{ marginBottom: 12 }}>
+                  <X size={12} strokeWidth={2.5} /> {oauthErr}
+                </div>
+              )}
+              <div className="au-oauth-row">
+                <button
+                  type="button"
+                  className="au-oauth-btn"
+                  onClick={() => handleOAuth("google")}
+                  disabled={oauthLoading !== null}
+                >
+                  <GoogleMark size={18} /> {oauthLoading === "google" ? "Redirecting…" : "Google"}
+                </button>
+                <button
+                  type="button"
+                  className="au-oauth-btn"
+                  onClick={() => handleOAuth("facebook")}
+                  disabled={oauthLoading !== null}
+                >
+                  <FacebookMark size={18} /> {oauthLoading === "facebook" ? "Redirecting…" : "Facebook"}
+                </button>
+              </div>
               <div className="au-divider"><span /><p>Your data is encrypted and never sold</p><span /></div>
             </>
           )}
@@ -387,6 +432,32 @@ export function AuthFlow({ onSuccess, marketSlug }: Props) {
               >
                 {siLoading ? "Signing in…" : <><span>Sign in</span> <ArrowRight size={16} strokeWidth={2} /></>}
               </button>
+
+              <div className="au-divider"><span /><p>or continue with</p><span /></div>
+              {oauthErr && (
+                <div className="au-error" style={{ marginBottom: 12 }}>
+                  <X size={12} strokeWidth={2.5} /> {oauthErr}
+                </div>
+              )}
+              <div className="au-oauth-row">
+                <button
+                  type="button"
+                  className="au-oauth-btn"
+                  onClick={() => handleOAuth("google")}
+                  disabled={oauthLoading !== null}
+                >
+                  <GoogleMark size={18} /> {oauthLoading === "google" ? "Redirecting…" : "Google"}
+                </button>
+                <button
+                  type="button"
+                  className="au-oauth-btn"
+                  onClick={() => handleOAuth("facebook")}
+                  disabled={oauthLoading !== null}
+                >
+                  <FacebookMark size={18} /> {oauthLoading === "facebook" ? "Redirecting…" : "Facebook"}
+                </button>
+              </div>
+
               <div className="au-toggle">
                 Don&apos;t have an account?{" "}
                 <button onClick={() => setFlow("signup-persona")}>Create one free</button>
