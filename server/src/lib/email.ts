@@ -31,7 +31,7 @@ export async function sendEnquiryNotification(opts: EnquiryNotificationOpts): Pr
   const c = client();
   if (!c) return;
 
-  const origin = process.env.CLIENT_ORIGIN ?? "https://propertyconnect.ng";
+  const origin = process.env.CLIENT_ORIGIN ?? "https://mypropertyconnect.ng";
   const dashboardUrl = `${origin}/${opts.marketId}/dashboard`;
   const modeLabel = MODE_LABEL[opts.mode] ?? opts.mode;
   const firstName = opts.agentName.split(" ")[0];
@@ -72,12 +72,12 @@ export async function sendEnquiryNotification(opts: EnquiryNotificationOpts): Pr
     View lead in dashboard →
   </a>
   <p style="margin:28px 0 0;color:#999;font-size:12px">
-    PropertyConnect · <a href="https://propertyconnect.ng" style="color:#999">propertyconnect.ng</a>
+    PropertyConnect · <a href="https://mypropertyconnect.ng" style="color:#999">mypropertyconnect.ng</a>
   </p>
 </body></html>`.trim();
 
   await c.emails.send({
-    from:    process.env.RESEND_FROM ?? "PropertyConnect <notifications@propertyconnect.ng>",
+    from:    process.env.RESEND_FROM ?? "PropertyConnect <notifications@mypropertyconnect.ng>",
     to:      opts.agentEmail,
     subject: `New ${modeLabel} — ${opts.listingTitle}`,
     html,

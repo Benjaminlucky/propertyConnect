@@ -1090,7 +1090,7 @@ export function DashboardView({ marketSlug }: { marketSlug: string }) {
                       </p>
                       {agentProfileSlug && (
                         <div className="db-rev__link-box">
-                          propertyconnect.ng/{marketSlug}/agent/{agentProfileSlug}
+                          mypropertyconnect.ng/{marketSlug}/agent/{agentProfileSlug}
                         </div>
                       )}
                     </div>

@@ -16,7 +16,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const SITE_URL = "https://www.propconnectng.com";
+const SITE_URL = "https://mypropertyconnect.ng";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -63,6 +63,11 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  // Google Search Console → Settings → Ownership verification → HTML tag →
+  // paste just the content="..." value into NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION.
+  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+    : undefined,
 };
 
 export default function RootLayout({

@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/ng/dashboard", "/ng/list", "/ng/verify", "/ng/admin", "/api/"],
       },
     ],
-    sitemap: "https://propertyconnect.ng/sitemap.xml",
+    sitemap: "https://mypropertyconnect.ng/sitemap.xml",
   };
 }

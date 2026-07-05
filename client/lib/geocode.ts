@@ -26,7 +26,7 @@ export async function geocodeNigeria(
       const res = await fetch(url, {
         headers: {
           // Nominatim policy requires a descriptive User-Agent
-          "User-Agent": "PropertyConnect/1.0 (admin@propertyconnect.ng)",
+          "User-Agent": "PropertyConnect/1.0 (admin@mypropertyconnect.ng)",
         },
         next: { revalidate: 86400 }, // cache 24 h in the Next.js data cache
       });

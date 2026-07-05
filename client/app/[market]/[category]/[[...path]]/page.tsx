@@ -126,21 +126,53 @@ export async function generateMetadata({
   const r = resolve(await params);
   if (!r) return {};
   if (r.id) {
-    const l = getListing(r.id);
-    if (l)
+    let l: Listing | null | undefined = getListing(r.id);
+    if (!l) l = await fetchDbListing(r.id);
+    if (l) {
+      const title = `${l.title} — ${l.neighbourhood}, ${l.state} | PropertyConnect`;
+      const description =
+        l.description?.slice(0, 155) ??
+        `${l.price}${l.period} · ${l.neighbourhood}, ${l.lga}, ${l.state}. Verified listing on PropertyConnect.`;
+      const url = `https://mypropertyconnect.ng/${r.market.slug}/${listingPath(l)}`;
+      // Listing photos already carry the mypropertyconnect.ng watermark baked
+      // in at upload — reusing them as-is for the share thumbnail.
+      const ogImage = l.photos?.[0]?.replace("/upload/", "/upload/w_1200,h_630,c_fill/");
       return {
-        title: `${l.title} — ${l.neighbourhood}, ${l.state} | PropertyConnect`,
-        description: l.title,
+        title,
+        description,
+        alternates: { canonical: url },
+        openGraph: {
+          type: "website",
+          title,
+          description,
+          url,
+          images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: l.title }] : undefined,
+        },
+        twitter: {
+          card: ogImage ? "summary_large_image" : "summary",
+          title,
+          description,
+          images: ogImage ? [ogImage] : undefined,
+        },
       };
+    }
   }
+  const canonicalBase = `https://mypropertyconnect.ng/${r.market.slug}/${r.category.id}`;
+
   // Neighbourhood-depth SEO metadata
   if (r.path.length >= 3) {
     const nhSlug = r.path[2];
     const nh = getNeighbourhood(nhSlug);
     if (nh) {
+      const title = `${r.category.label} in ${nh.name}, ${nh.lga} — ${nh.state} | PropertyConnect`;
+      const description = `${nh.description.split(".")[0]}. Browse verified ${r.category.label.toLowerCase()} listings in ${nh.name}, ${nh.lga}. PropertyConnect — list free, find fast.`;
+      const url = `${canonicalBase}/${r.path.join("/")}`;
       return {
-        title: `${r.category.label} in ${nh.name}, ${nh.lga} — ${nh.state} | PropertyConnect`,
-        description: `${nh.description.split(".")[0]}. Browse verified ${r.category.label.toLowerCase()} listings in ${nh.name}, ${nh.lga}. PropertyConnect — list free, find fast.`,
+        title,
+        description,
+        alternates: { canonical: url },
+        openGraph: { type: "website", title, description, url },
+        twitter: { card: "summary", title, description },
       };
     }
   }
@@ -148,9 +180,15 @@ export async function generateMetadata({
     .filter((s) => s !== "nigeria")
     .map((s) => titleCase(s))
     .join(", ");
+  const title = `${r.category.label}${where ? " in " + where : " across Nigeria"} | PropertyConnect`;
+  const description = `Browse verified ${r.category.label.toLowerCase()} listings${where ? " in " + where : " across Nigeria"}. Free to list. Fast to find. PropertyConnect.`;
+  const url = r.path.length ? `${canonicalBase}/${r.path.join("/")}` : canonicalBase;
   return {
-    title: `${r.category.label}${where ? " in " + where : " across Nigeria"} | PropertyConnect`,
-    description: `Browse verified ${r.category.label.toLowerCase()} listings${where ? " in " + where : " across Nigeria"}. Free to list. Fast to find. PropertyConnect.`,
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { type: "website", title, description, url },
+    twitter: { card: "summary", title, description },
   };
 }
 
@@ -222,7 +260,7 @@ export default async function CategoryRoute({
     href: `/${market.slug}/${category.id}/${locPath.slice(0, i + 1).join("/")}`,
   }));
   const place = nationwide ? "Nigeria" : titleCase(locPath[locPath.length - 1]);
-  const seoUrl = `propertyconnect.ng/${category.id}/${path.join("/") || "nigeria"}`;
+  const seoUrl = `mypropertyconnect.ng/${market.slug}/${category.id}/${path.join("/") || "nigeria"}`;
 
   const sortLabel =
     filter.sort === "price_asc" ? "price: low → high"
@@ -349,7 +387,7 @@ async function Detail({
     "@context": "https://schema.org",
     "@type": "RealEstateListing",
     name: l.title,
-    url: `https://propertyconnect.ng/${listingPath(l)}`,
+    url: `https://mypropertyconnect.ng/${marketSlug}/${listingPath(l)}`,
     address: {
       "@type": "PostalAddress",
       addressLocality: l.neighbourhood,
@@ -383,7 +421,7 @@ async function Detail({
             {l.state} <span className="sep">›</span> {l.lga}{" "}
             <span className="sep">›</span> {l.neighbourhood}
           </div>
-          <div className="urlbar">propertyconnect.ng/{listingPath(l)}</div>
+          <div className="urlbar">mypropertyconnect.ng/{marketSlug}/{listingPath(l)}</div>
           {l.photos && l.photos.length > 0 ? (
             <PhotoGallery photos={l.photos} title={l.title} />
           ) : (
@@ -503,14 +541,14 @@ async function Detail({
               <a
                 className="share-btn share-btn--wa"
                 href={`https://wa.me/?text=${encodeURIComponent(
-                  `${l.title} — ${l.neighbourhood}, ${l.state}\n${l.price}${l.period}\nhttps://propertyconnect.ng/${listingPath(l)}`
+                  `${l.title} — ${l.neighbourhood}, ${l.state}\n${l.price}${l.period}\nhttps://mypropertyconnect.ng/${marketSlug}/${listingPath(l)}`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 WhatsApp
               </a>
-              <CopyLinkButton url={`https://propertyconnect.ng/${listingPath(l)}`} />
+              <CopyLinkButton url={`https://mypropertyconnect.ng/${marketSlug}/${listingPath(l)}`} />
             </div>
           </div>
 

@@ -35,7 +35,7 @@ export const MARKETS: Record<MarketId, Market> = {
     currencySymbol: "₦",
     locale: "en-NG",
     defaultCity: "Lagos",
-    domains: ["propconnectng.com", "www.propconnectng.com"],
+    domains: ["mypropertyconnect.ng", "www.mypropertyconnect.ng", "mypropertyconnect.netlify.app"],
     live: true,
   },
   // Pre-seeded, not launched. Proves the seam holds for expansion.

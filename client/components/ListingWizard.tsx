@@ -220,6 +220,7 @@ export function ListingWizard({ user, marketSlug, editId, initialDraft }: Props)
       try {
         const form = new FormData();
         form.append("file", file);
+        form.append("purpose", "listing");
         const res = await fetch(`${apiBase}/api/v1/upload/photo`, {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },

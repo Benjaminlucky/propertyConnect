@@ -24,11 +24,23 @@ const PROTECTED_SEGMENTS = new Set(["dashboard", "list", "verify"]);
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Skip Next.js internals and static files entirely
+  // Skip Next.js internals, static files, and root-level metadata routes.
+  // icon/apple-icon/opengraph-image are extensionless (they serve image
+  // content but their URL has no dot), so without this they'd fall through
+  // to market rewriting below and get sent to a nonexistent /ng/icon path.
+  const ROOT_METADATA_ROUTES = new Set([
+    "/favicon.ico",
+    "/icon",
+    "/apple-icon",
+    "/opengraph-image",
+    "/robots.txt",
+    "/sitemap.xml",
+  ]);
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
-    pathname.includes(".")
+    pathname.includes(".") ||
+    ROOT_METADATA_ROUTES.has(pathname)
   ) {
     return NextResponse.next();
   }

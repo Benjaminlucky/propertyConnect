@@ -88,12 +88,17 @@ export async function generateMetadata({
 }: {
   params: Promise<Params>;
 }): Promise<Metadata> {
-  const { agentSlug } = await params;
+  const { market: marketSlug, agentSlug } = await params;
+  const url = `https://mypropertyconnect.ng/${marketSlug}/agent/${agentSlug}`;
   const seed = getAgent(agentSlug);
   if (seed) {
+    const title = `${seed.name} — Verified Property Agent | PropertyConnect`;
     return {
-      title: `${seed.name} — Verified Property Agent | PropertyConnect`,
+      title,
       description: seed.bio,
+      alternates: { canonical: url },
+      openGraph: { type: "profile", title, description: seed.bio, url },
+      twitter: { card: "summary", title, description: seed.bio },
     };
   }
   const { data } = await supabaseServer
@@ -102,9 +107,14 @@ export async function generateMetadata({
     .eq("slug", agentSlug)
     .single();
   if (!data) return {};
+  const title = `${data.name} — Property Agent | PropertyConnect`;
+  const description = (data.bio as string) || undefined;
   return {
-    title: `${data.name} — Property Agent | PropertyConnect`,
-    description: (data.bio as string) || undefined,
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { type: "profile", title, description, url },
+    twitter: { card: "summary", title, description },
   };
 }
 
@@ -166,7 +176,7 @@ export default async function AgentProfilePage({
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
     name: agent.name,
-    url: `https://propertyconnect.ng/${market.slug}/agent/${agent.slug}`,
+    url: `https://mypropertyconnect.ng/${market.slug}/agent/${agent.slug}`,
   };
   if (agent.bio) ld.description = agent.bio;
   if (agent.cities.length) ld.areaServed = agent.cities.join(", ");
