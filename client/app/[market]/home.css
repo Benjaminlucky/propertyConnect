@@ -589,6 +589,8 @@
   padding-bottom: 3px;
   margin-bottom: 18px;
   -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 .home .fb::-webkit-scrollbar { display: none; }
 
@@ -769,6 +771,14 @@
   gap: 26px;
   align-items: start;
   padding-top: 24px;
+}
+/* Grid items default to min-width:auto, which refuses to shrink below the
+   content column's intrinsic width. FilterBar's horizontally-scrolling
+   .fb chip row is wide unwrapped content — without this, the whole results
+   column (and cards inside it) gets forced wider than the viewport instead
+   of the filter bar scrolling within its own bounds. */
+.home .results > div:first-child {
+  min-width: 0;
 }
 .home .filters {
   display: flex;
