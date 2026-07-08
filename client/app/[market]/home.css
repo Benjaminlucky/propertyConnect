@@ -593,6 +593,15 @@
   box-sizing: border-box;
 }
 .home .fb::-webkit-scrollbar { display: none; }
+/* Chip row overflows on mobile by design (scrolls horizontally), but a
+   hard-cut right edge reads as a broken/truncated layout rather than a
+   scrollable one — fade it out so it's legible as "more chips this way". */
+@media (max-width: 767px) {
+  .home .fb {
+    mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent 100%);
+  }
+}
 
 /* Divider pip */
 .home .fb__sep {
@@ -1561,11 +1570,6 @@
   .home .nh-highlights__grid { grid-template-columns: 1fr; }
   .home .nh-stat { flex: 1 0 100%; border-right: none; }
 }
-@media (max-width: 479px) {
-  /* Property-details grid (furnishing, year built, etc.) — 2 columns
-     squeezes long values on phones; stack to 1 column instead. */
-  .home .attrs { grid-template-columns: 1fr; }
-}
 
 /* ================================================================
    PREMIUM DESIGN ELEVATION
@@ -1825,6 +1829,13 @@
 .home .attrs .a { background: var(--c-neutral-0); padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; }
 .home .attrs .a span { font-size: 11px; color: var(--clay); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
 .home .attrs .a b { font-size: 14px; font-weight: 600; color: var(--ink); }
+/* Property-details grid (furnishing, year built, etc.) — 2 columns
+   squeezes long values on phones; stack to 1 column instead. Must be
+   declared after the base .attrs rule above (same specificity) so the
+   cascade actually picks it up on narrow viewports. */
+@media (max-width: 479px) {
+  .home .attrs { grid-template-columns: 1fr; }
+}
 
 .home h3.sub { font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: 0.01em; margin: 24px 0 10px; font-family: var(--font-inter),sans-serif; }
 .home p.desc { font-size: 15px; color: var(--c-neutral-600); line-height: var(--leading-relaxed); max-width: 70ch; }
@@ -1918,7 +1929,12 @@
 .home .sec-gap { margin-bottom: 60px; }
 
 /* ── Cards grid — explicit gap ────────────────────────────── */
-.home .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+/* Column count is owned by the base rule (line ~333) and the
+   max-width:980px/560px overrides below it — only bump the gap here.
+   (Previously this repeated grid-template-columns: repeat(3,1fr)
+   unconditionally, which — same specificity, later in source order —
+   beat both mobile media queries and forced a 3-column grid on phones.) */
+.home .cards { gap: 22px; }
 
 /* ── Category icon — gradient bg, single forest color ─────── */
 .home .catc .ic {

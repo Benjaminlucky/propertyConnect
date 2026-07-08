@@ -690,8 +690,23 @@ h1, h2, h3 {
 }
 @media (max-width: 639px) {
   .pc-nav__inner  { padding: 0 16px; height: 60px; gap: 8px; }
-  .pc-logo__name  { font-size: 17px; }
+  .pc-logo        { flex-shrink: 1; min-width: 0; }
+  .pc-logo__name  { font-size: 17px; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
   .pc-cta--gold   { padding: 8px 14px; font-size: 13px; }
+}
+/* Narrow phones (iPhone SE, small Android): logo + search toggle + "List
+   free" + burger no longer fit at the 639px sizes above without crowding
+   or pushing the burger past the viewport edge. Tighten further; the
+   .pc-logo ellipsis rule above is the final safety net if a device is
+   still narrower than this. */
+@media (max-width: 400px) {
+  .pc-nav__inner   { padding: 0 12px; gap: 6px; }
+  .pc-logo         { gap: 7px; }
+  .pc-logo__name   { font-size: 15.5px; }
+  .pc-nav__end     { gap: 4px; }
+  .pc-cta--gold    { padding: 7px 11px; font-size: 12.5px; }
+  .pc-search-toggle,
+  .pc-burger       { width: 34px; height: 34px; }
 }
 @media (max-width: 960px) {
   .pc-footer__grid { grid-template-columns: 1fr 1fr; gap: 32px; }
@@ -1228,9 +1243,13 @@ h1, h2, h3 {
 }
 
 /* Logo */
+/* No font-size here on purpose: this unconditional rule sits after the
+   mobile media queries below (~line 691) and, at equal specificity,
+   would silently override the shrunk mobile sizes on every viewport —
+   the same cascade-order bug that broke .home .cards. Color/spacing
+   only; size stays owned by the base rule + its media queries. */
 .pc-logo__name {
   color: #ffffff;
-  font-size: 20px;
   letter-spacing: -0.025em;
 }
 .pc-logo:hover .pc-logo__mark {
