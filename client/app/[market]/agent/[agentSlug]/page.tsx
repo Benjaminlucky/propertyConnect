@@ -97,8 +97,14 @@ export async function generateMetadata({
       title,
       description: seed.bio,
       alternates: { canonical: url },
-      openGraph: { type: "profile", title, description: seed.bio, url },
-      twitter: { card: "summary", title, description: seed.bio },
+      openGraph: {
+        type: "profile",
+        title,
+        description: seed.bio,
+        url,
+        images: [{ url: "/og-default.jpg", width: 1200, height: 630, alt: title }],
+      },
+      twitter: { card: "summary_large_image", title, description: seed.bio, images: ["/og-default.jpg"] },
     };
   }
   const { data } = await supabaseServer
@@ -113,8 +119,14 @@ export async function generateMetadata({
     title,
     description,
     alternates: { canonical: url },
-    openGraph: { type: "profile", title, description, url },
-    twitter: { card: "summary", title, description },
+    openGraph: {
+      type: "profile",
+      title,
+      description,
+      url,
+      images: [{ url: "/og-default.jpg", width: 1200, height: 630, alt: title }],
+    },
+    twitter: { card: "summary_large_image", title, description, images: ["/og-default.jpg"] },
   };
 }
 

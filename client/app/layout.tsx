@@ -45,12 +45,14 @@ export const metadata: Metadata = {
       "Nigeria's verified real estate platform. Every agent ID-checked, every listing screened. Free to list, forever.",
     locale: "en_NG",
     url: SITE_URL,
+    images: [{ url: "/og-default.jpg", width: 1200, height: 630, alt: "PropertyConnect — List free. Find fast. Deal smart." }],
   },
   twitter: {
     card: "summary_large_image",
     title: "PropertyConnect — List free. Find fast. Deal smart.",
     description:
       "Nigeria's verified real estate platform. Every agent ID-checked, every listing screened for scams. Free to list, forever.",
+    images: ["/og-default.jpg"],
   },
   robots: {
     index: true,

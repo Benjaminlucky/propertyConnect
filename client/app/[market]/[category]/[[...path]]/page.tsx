@@ -135,8 +135,11 @@ export async function generateMetadata({
         `${l.price}${l.period} · ${l.neighbourhood}, ${l.lga}, ${l.state}. Verified listing on PropertyConnect.`;
       const url = `https://mypropertyconnect.ng/${r.market.slug}/${listingPath(l)}`;
       // Listing photos already carry the mypropertyconnect.ng watermark baked
-      // in at upload — reusing them as-is for the share thumbnail.
-      const ogImage = l.photos?.[0]?.replace("/upload/", "/upload/w_1200,h_630,c_fill/");
+      // in at upload — reusing them as-is for the share thumbnail. Listings
+      // without a photo yet still get a branded share image instead of none.
+      const ogImage = l.photos?.[0]
+        ? l.photos[0].replace("/upload/", "/upload/w_1200,h_630,c_fill/")
+        : "/og-default.jpg";
       return {
         title,
         description,
@@ -171,8 +174,14 @@ export async function generateMetadata({
         title,
         description,
         alternates: { canonical: url },
-        openGraph: { type: "website", title, description, url },
-        twitter: { card: "summary", title, description },
+        openGraph: {
+          type: "website",
+          title,
+          description,
+          url,
+          images: [{ url: "/og-default.jpg", width: 1200, height: 630, alt: title }],
+        },
+        twitter: { card: "summary_large_image", title, description, images: ["/og-default.jpg"] },
       };
     }
   }
@@ -187,8 +196,14 @@ export async function generateMetadata({
     title,
     description,
     alternates: { canonical: url },
-    openGraph: { type: "website", title, description, url },
-    twitter: { card: "summary", title, description },
+    openGraph: {
+      type: "website",
+      title,
+      description,
+      url,
+      images: [{ url: "/og-default.jpg", width: 1200, height: 630, alt: title }],
+    },
+    twitter: { card: "summary_large_image", title, description, images: ["/og-default.jpg"] },
   };
 }
 
@@ -381,7 +396,6 @@ async function Detail({
     fetchSimilarCandidates(l),
   ]);
   const similar = buildSimilarListings(l, dbCandidates, l.marketId);
-  const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
   const description = l.description ?? d.description;
   const ld = {
     "@context": "https://schema.org",
@@ -509,15 +523,14 @@ async function Detail({
             {/* ── Location map ── */}
             <div className="det-map-section">
               <h3 className="sub">Location</h3>
-              {geo && mapboxToken ? (
+              {geo ? (
                 <div className="det-map">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={`https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/pin-s+2d6a4f(${geo.lng},${geo.lat})/${geo.lng},${geo.lat},14/640x320@2x?access_token=${mapboxToken}`}
-                    alt={`Map showing ${l.neighbourhood}, ${l.state}`}
+                  <iframe
+                    src={`https://www.openstreetmap.org/export/embed.html?bbox=${geo.lng - 0.008}%2C${geo.lat - 0.008}%2C${geo.lng + 0.008}%2C${geo.lat + 0.008}&layer=mapnik&marker=${geo.lat}%2C${geo.lng}`}
+                    title={`Map showing ${l.neighbourhood}, ${l.state}`}
                     className="det-map-img"
+                    style={{ border: 0 }}
                     loading="lazy"
-                    decoding="async"
                     width={640}
                     height={320}
                   />
