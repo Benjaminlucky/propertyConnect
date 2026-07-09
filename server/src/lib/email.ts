@@ -72,12 +72,12 @@ export async function sendEnquiryNotification(opts: EnquiryNotificationOpts): Pr
     View lead in dashboard →
   </a>
   <p style="margin:28px 0 0;color:#999;font-size:12px">
-    PropertyConnect · <a href="https://mypropertyconnect.ng" style="color:#999">mypropertyconnect.ng</a>
+    MyPropertyConnect · <a href="https://mypropertyconnect.ng" style="color:#999">mypropertyconnect.ng</a>
   </p>
 </body></html>`.trim();
 
   await c.emails.send({
-    from:    process.env.RESEND_FROM ?? "PropertyConnect <notifications@mypropertyconnect.ng>",
+    from:    process.env.RESEND_FROM ?? "MyPropertyConnect <notifications@mypropertyconnect.ng>",
     to:      opts.agentEmail,
     subject: `New ${modeLabel} — ${opts.listingTitle}`,
     html,

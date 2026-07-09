@@ -88,13 +88,25 @@ enquiriesRouter.get("/", requireAuth, async (req, res) => {
   res.json(data);
 });
 
-// PATCH /api/v1/enquiries/:id/status — agent-authenticated
+// PATCH /api/v1/enquiries/:id/status — owner only
 enquiriesRouter.patch("/:id/status", requireAuth, async (req, res) => {
+  const agentId = (req as any).user.id;
   const { status } = req.body as { status: string };
   if (!["new", "contacted", "viewing_booked", "closed"].includes(status)) {
     res.status(400).json({ error: "Invalid status" });
     return;
   }
+
+  const { data: existing, error: fetchErr } = await supabase
+    .from("enquiries")
+    .select("listings!inner(agent_id)")
+    .eq("id", req.params.id)
+    .single();
+
+  if (fetchErr || !existing) { res.status(404).json({ error: "Not found" }); return; }
+  const owner = (existing.listings as unknown as { agent_id: string } | null)?.agent_id;
+  if (owner !== agentId) { res.status(403).json({ error: "Not your lead" }); return; }
+
   const { error } = await supabase
     .from("enquiries")
     .update({ status })

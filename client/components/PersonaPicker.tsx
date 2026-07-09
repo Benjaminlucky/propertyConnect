@@ -63,7 +63,7 @@ export function PersonaPicker({ marketSlug, next }: Props) {
         <div className="au-form-wrap">
           <div className="au-logo">
             <LogoMark size={30} />
-            <span className="au-logo-name">PropertyConnect</span>
+            <span className="au-logo-name">MyPropertyConnect</span>
           </div>
 
           <div className="au-eyebrow">One more thing</div>

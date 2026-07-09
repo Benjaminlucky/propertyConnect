@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "PropertyConnect — Nigeria's Free Real Estate Platform";
+export const alt = "MyPropertyConnect — Nigeria's Free Real Estate Platform";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -67,7 +67,7 @@ export default function OGImage() {
               letterSpacing: "-0.02em",
             }}
           >
-            PropertyConnect
+            MyPropertyConnect
           </span>
         </div>
 

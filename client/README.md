@@ -1,4 +1,4 @@
-# PropConnect NG — Next.js shell (frontend, multitenant-first)
+# MyPropConnect NG — Next.js shell (frontend, multitenant-first)
 
 Real Next.js 16 (App Router, TypeScript, Tailwind v4) scaffold. Frontend-first,
 mock data, designed so swapping in the real API is a substitution, not a rewrite.

@@ -57,12 +57,13 @@ listingsRouter.post("/:id/view", async (req, res) => {
   supabase.from("listing_views").insert({ listing_id: id }).then(() => {});
 });
 
-// GET /api/v1/listings/:id
+// GET /api/v1/listings/:id — public, active listings only (matches the list endpoint)
 listingsRouter.get("/:id", async (req, res) => {
   const { data, error } = await supabase
     .from("listings")
     .select("*, listing_attributes(*), listing_photos(id, url, position)")
     .eq("id", req.params.id)
+    .eq("status", "active")
     .single();
 
   if (error || !data) { res.status(404).json({ error: "Not found" }); return; }

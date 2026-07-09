@@ -68,7 +68,7 @@ export function SiteHeader({ market }: { market: Market }) {
             <span className="pc-logo__mark">
               <LogoMark size={30} />
             </span>
-            <span className="pc-logo__name">PropertyConnect</span>
+            <span className="pc-logo__name">MyPropertyConnect</span>
           </Link>
 
           {/* Desktop search bar — takes all flex space between logo and CTAs */}
@@ -174,7 +174,7 @@ export function SiteHeader({ market }: { market: Market }) {
             <span className="pc-logo__mark">
               <LogoMark size={28} />
             </span>
-            <span className="pc-logo__name">PropertyConnect</span>
+            <span className="pc-logo__name">MyPropertyConnect</span>
           </Link>
           <button
             className="pc-drawer__close"
@@ -237,7 +237,7 @@ export function SiteFooter({ market }: { market: Market }) {
           <div>
             <div className="pc-footer__brand">
               <LogoMarkDim size={28} />
-              <span className="pc-footer__brand-name">PropertyConnect</span>
+              <span className="pc-footer__brand-name">MyPropertyConnect</span>
             </div>
             <p className="pc-footer__tagline">
               The operating system for Nigerian real estate. List free, find fast,
@@ -274,7 +274,7 @@ export function SiteFooter({ market }: { market: Market }) {
         </div>
 
         <div className="pc-footer__bot">
-          <span>© 2026 PropertyConnect · Nigeria</span>
+          <span>© 2026 MyPropertyConnect · Nigeria</span>
           <span className="pc-footer__credit">A product of Mark V Technologies Limited</span>
           <span>Privacy · Terms · Report a listing</span>
         </div>

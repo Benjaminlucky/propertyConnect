@@ -2,7 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { NextRequest, NextResponse } from "next/server";
 import { MARKETS, DEFAULT_MARKET, getMarketByHost } from "@/lib/markets";
 
-const PROTECTED_SEGMENTS = new Set(["dashboard", "list", "verify"]);
+const PROTECTED_SEGMENTS = new Set(["dashboard", "list", "verify", "superadmin"]);
 
 /**
  * Tenant resolution + Supabase session refresh at the edge.

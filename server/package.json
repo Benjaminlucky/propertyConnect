@@ -1,7 +1,7 @@
 {
-  "name": "propertyconnect-server",
+  "name": "mypropertyconnect-server",
   "version": "0.1.0",
-  "description": "PropConnect NG — API server",
+  "description": "MyPropConnect NG — API server",
   "private": true,
   "type": "module",
   "scripts": {

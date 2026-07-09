@@ -55,5 +55,5 @@ app.use((_req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`PropConnect API running on http://localhost:${PORT}`);
+  console.log(`MyPropConnect API running on http://localhost:${PORT}`);
 });

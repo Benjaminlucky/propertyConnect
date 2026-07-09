@@ -129,10 +129,10 @@ export async function generateMetadata({
     let l: Listing | null | undefined = getListing(r.id);
     if (!l) l = await fetchDbListing(r.id);
     if (l) {
-      const title = `${l.title} — ${l.neighbourhood}, ${l.state} | PropertyConnect`;
+      const title = `${l.title} — ${l.neighbourhood}, ${l.state} | MyPropertyConnect`;
       const description =
         l.description?.slice(0, 155) ??
-        `${l.price}${l.period} · ${l.neighbourhood}, ${l.lga}, ${l.state}. Verified listing on PropertyConnect.`;
+        `${l.price}${l.period} · ${l.neighbourhood}, ${l.lga}, ${l.state}. Verified listing on MyPropertyConnect.`;
       const url = `https://mypropertyconnect.ng/${r.market.slug}/${listingPath(l)}`;
       // Listing photos already carry the mypropertyconnect.ng watermark baked
       // in at upload — reusing them as-is for the share thumbnail. Listings
@@ -167,8 +167,8 @@ export async function generateMetadata({
     const nhSlug = r.path[2];
     const nh = getNeighbourhood(nhSlug);
     if (nh) {
-      const title = `${r.category.label} in ${nh.name}, ${nh.lga} — ${nh.state} | PropertyConnect`;
-      const description = `${nh.description.split(".")[0]}. Browse verified ${r.category.label.toLowerCase()} listings in ${nh.name}, ${nh.lga}. PropertyConnect — list free, find fast.`;
+      const title = `${r.category.label} in ${nh.name}, ${nh.lga} — ${nh.state} | MyPropertyConnect`;
+      const description = `${nh.description.split(".")[0]}. Browse verified ${r.category.label.toLowerCase()} listings in ${nh.name}, ${nh.lga}. MyPropertyConnect — list free, find fast.`;
       const url = `${canonicalBase}/${r.path.join("/")}`;
       return {
         title,
@@ -189,8 +189,8 @@ export async function generateMetadata({
     .filter((s) => s !== "nigeria")
     .map((s) => titleCase(s))
     .join(", ");
-  const title = `${r.category.label}${where ? " in " + where : " across Nigeria"} | PropertyConnect`;
-  const description = `Browse verified ${r.category.label.toLowerCase()} listings${where ? " in " + where : " across Nigeria"}. Free to list. Fast to find. PropertyConnect.`;
+  const title = `${r.category.label}${where ? " in " + where : " across Nigeria"} | MyPropertyConnect`;
+  const description = `Browse verified ${r.category.label.toLowerCase()} listings${where ? " in " + where : " across Nigeria"}. Free to list. Fast to find. MyPropertyConnect.`;
   const url = r.path.length ? `${canonicalBase}/${r.path.join("/")}` : canonicalBase;
   return {
     title,

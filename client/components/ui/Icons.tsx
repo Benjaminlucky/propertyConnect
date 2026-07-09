@@ -1,5 +1,5 @@
 /**
- * PropertyConnect Icon Library — thin re-exports from lucide-react.
+ * MyPropertyConnect Icon Library — thin re-exports from lucide-react.
  * All icons inherit strokeWidth=1.8 and currentColor by default.
  * Named exports match the legacy custom-SVG names so existing imports are unchanged.
  */

@@ -26,11 +26,11 @@ export async function generateMetadata({
   const q = typeof sp.q === "string" ? sp.q : "";
   return {
     title: q
-      ? `"${q}" — Property search results | PropertyConnect`
-      : "Search properties | PropertyConnect",
+      ? `"${q}" — Property search results | MyPropertyConnect`
+      : "Search properties | MyPropertyConnect",
     description: q
-      ? `Search results for "${q}" across all property listings in Nigeria. Browse verified properties on PropertyConnect.`
-      : "Search properties across Nigeria on PropertyConnect.",
+      ? `Search results for "${q}" across all property listings in Nigeria. Browse verified properties on MyPropertyConnect.`
+      : "Search properties across Nigeria on MyPropertyConnect.",
   };
 }
 

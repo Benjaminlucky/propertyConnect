@@ -21,8 +21,8 @@ const SITE_URL = "https://mypropertyconnect.ng";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "PropertyConnect — List free. Find fast. Deal smart.",
-    template: "%s | PropertyConnect NG",
+    default: "MyPropertyConnect — List free. Find fast. Deal smart.",
+    template: "%s | MyPropertyConnect NG",
   },
   description:
     "Nigeria's verified real estate platform. Every agent ID-checked, every listing screened for scams. Eight property categories across all 36 states and the FCT. Free to list, forever.",
@@ -39,17 +39,17 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     type: "website",
-    siteName: "PropertyConnect NG",
-    title: "PropertyConnect — List free. Find fast. Deal smart.",
+    siteName: "MyPropertyConnect NG",
+    title: "MyPropertyConnect — List free. Find fast. Deal smart.",
     description:
       "Nigeria's verified real estate platform. Every agent ID-checked, every listing screened. Free to list, forever.",
     locale: "en_NG",
     url: SITE_URL,
-    images: [{ url: "/og-default.jpg", width: 1200, height: 630, alt: "PropertyConnect — List free. Find fast. Deal smart." }],
+    images: [{ url: "/og-default.jpg", width: 1200, height: 630, alt: "MyPropertyConnect — List free. Find fast. Deal smart." }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "PropertyConnect — List free. Find fast. Deal smart.",
+    title: "MyPropertyConnect — List free. Find fast. Deal smart.",
     description:
       "Nigeria's verified real estate platform. Every agent ID-checked, every listing screened for scams. Free to list, forever.",
     images: ["/og-default.jpg"],

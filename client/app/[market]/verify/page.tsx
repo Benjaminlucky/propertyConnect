@@ -6,7 +6,7 @@ import { VerifyCenter } from "@/components/VerifyCenter";
 import "../verify.css";
 
 export const metadata: Metadata = {
-  title: "Trust & Verification | PropertyConnect",
+  title: "Trust & Verification | MyPropertyConnect",
   description: "Complete your identity and licence verification to earn your Gold seal and rank higher in search results.",
 };
 

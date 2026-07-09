@@ -92,7 +92,7 @@ export async function generateMetadata({
   const url = `https://mypropertyconnect.ng/${marketSlug}/agent/${agentSlug}`;
   const seed = getAgent(agentSlug);
   if (seed) {
-    const title = `${seed.name} — Verified Property Agent | PropertyConnect`;
+    const title = `${seed.name} — Verified Property Agent | MyPropertyConnect`;
     return {
       title,
       description: seed.bio,
@@ -113,7 +113,7 @@ export async function generateMetadata({
     .eq("slug", agentSlug)
     .single();
   if (!data) return {};
-  const title = `${data.name} — Property Agent | PropertyConnect`;
+  const title = `${data.name} — Property Agent | MyPropertyConnect`;
   const description = (data.bio as string) || undefined;
   return {
     title,
@@ -276,7 +276,7 @@ export default async function AgentProfilePage({
               <a
                 className="ag-contact-btn"
                 href={`https://wa.me/234${agent.phone.replace(/^0/, "")}?text=${encodeURIComponent(
-                  `Hi ${agent.name.split(" ")[0]}, I found your profile on PropertyConnect.`
+                  `Hi ${agent.name.split(" ")[0]}, I found your profile on MyPropertyConnect.`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"

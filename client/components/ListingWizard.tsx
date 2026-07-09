@@ -318,7 +318,7 @@ export function ListingWizard({ user, marketSlug, editId, initialDraft }: Props)
         <div className="lw-header-inner">
           <Link href={`/${marketSlug}`} className="lw-logo">
             <LogoMark size={28} />
-            <span className="lw-logo-name">PropertyConnect</span>
+            <span className="lw-logo-name">MyPropertyConnect</span>
           </Link>
           <div className="lw-steps">
             {STEPS.map(s => (

@@ -53,7 +53,7 @@ const STEPS: Step[] = [
     Icon: CreditCard,
     iconColor: "var(--forest)",
     title: "NIN Verification",
-    desc: "Your National Identification Number links your real-world identity to your PropertyConnect profile. This is the single most important signal for property seekers — they need to know the person behind the listing is a real, accountable individual.",
+    desc: "Your National Identification Number links your real-world identity to your MyPropertyConnect profile. This is the single most important signal for property seekers — they need to know the person behind the listing is a real, accountable individual.",
     tier: "bronze",
     inputKind: "nin",
     doneText: "NIN matched · identity confirmed Nov 2024",

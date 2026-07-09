@@ -149,7 +149,7 @@ export function AuthFlow({ onSuccess, marketSlug }: Props) {
         <div className="au-form-wrap">
           <Link href={`/${marketSlug}`} className="au-logo">
             <LogoMark size={30} />
-            <span className="au-logo-name">PropertyConnect</span>
+            <span className="au-logo-name">MyPropertyConnect</span>
           </Link>
 
           {/* ── CHOOSE ── */}

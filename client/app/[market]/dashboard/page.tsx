@@ -7,7 +7,7 @@ import "../dashboard.css";
 import "../auth/auth.css";
 
 export const metadata: Metadata = {
-  title: "Agent Dashboard | PropertyConnect",
+  title: "Agent Dashboard | MyPropertyConnect",
   description: "Manage listings, track leads, and view analytics.",
 };
 

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ================================================================
-   PropertyConnect — Design Token System
+   MyPropertyConnect — Design Token System
    ================================================================ */
 
 :root {
@@ -237,7 +237,7 @@ h1, h2, h3 {
 }
 
 /* ================================================================
-   PropertyConnect Global Navigation  (pc- namespace)
+   MyPropertyConnect Global Navigation  (pc- namespace)
    ================================================================ */
 
 /* Nav shell */
