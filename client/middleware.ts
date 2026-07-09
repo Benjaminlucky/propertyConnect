@@ -39,6 +39,7 @@ export async function middleware(req: NextRequest) {
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
+    pathname.startsWith("/auth/callback") ||
     pathname.includes(".") ||
     ROOT_METADATA_ROUTES.has(pathname)
   ) {
